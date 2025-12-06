@@ -33,37 +33,39 @@ Este proyecto fue creado como entrega final para la asignatura Algoritmos en Sis
   Entorno: Linux (compatible con Windows si se recompila)
 
 **Estructura del proyecto**
-  
-  proyecto-rastreador-salud/
-├─ src/
-│  ├─ main.cpp
-│  ├─ loginwindow.cpp
-│  ├─ mainwindow.cpp
-│  ├─ user.cpp
-│  ├─ healthrecord.cpp
-│  ├─ databasemanager.cpp
-│  ├─ healthanalyzer.cpp
-│  ├─ csvexporter.cpp
-│  └─ ...
-├─ include/
-│  ├─ loginwindow.h
-│  ├─ mainwindow.h
-│  ├─ user.h
-│  ├─ healthrecord.h
-│  ├─ databasemanager.h
-│  ├─ healthanalyzer.h
-│  ├─ csvexporter.h
-├─ ui/
-│  ├─ loginwindow.ui
-│  └─ mainwindow.ui
-├─ sql/
-│  └─ init_db.sql
-├─ data/
-│  └─ health_tracker.db
-├─ docs/
-│  ├─ informe_proyecto.pdf
-│  └─ presentacion.pptx
-└─ README.md
+```
+proyecto-rastreador-salud/
+├── src/
+│   ├── main.cpp
+│   ├── loginwindow.cpp
+│   ├── mainwindow.cpp
+│   ├── user.cpp
+│   ├── healthrecord.cpp
+│   ├── databasemanager.cpp
+│   ├── healthanalyzer.cpp
+│   ├── csvexporter.cpp
+│   └── ...
+├── include/
+│   ├── loginwindow.h
+│   ├── mainwindow.h
+│   ├── user.h
+│   ├── healthrecord.h
+│   ├── databasemanager.h
+│   ├── healthanalyzer.h
+│   ├── csvexporter.h
+│   └── ...
+├── ui/
+│   ├── loginwindow.ui
+│   └── mainwindow.ui
+├── sql/
+│   └── init_db.sql
+├── data/
+│   └── health_tracker.db
+├── docs/
+│   ├── informe_proyecto.pdf
+│   └── presentacion.pptx
+└── README.md
+```
 
 **Base de datos**
 
