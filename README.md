@@ -4,7 +4,7 @@ Proyecto de Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón
 Este proyecto es una aplicación de escritorio que permite a un usuario registrar y consultar sus indicadores básicos de salud: peso, presión arterial y glucosa.
 Fue desarrollada en C++, utilizando Qt para la interfaz gráfica y SQLite como base de datos local.
 
-El sistema permite:
+**El sistema permite**:
 
   Iniciar sesión con usuario y contraseña
   Registrar nuevos datos de salud
@@ -15,7 +15,7 @@ El sistema permite:
 
 Este proyecto fue creado como entrega final para la asignatura Algoritmos en Sistemas Electrónicos.
 
-Características principales
+**Características principales**
 
   Autenticación de usuarios
   CRUD de registros de salud
@@ -25,14 +25,14 @@ Características principales
   Exportación de datos a CSV
   Diseño orientado a objetos
 
-Tecnologías utilizadas
+**Tecnologías utilizadas**
 
   Lenguaje: C++
   Framework: Qt5 / Qt6 (según instalación)
   Base de datos: SQLite
   Entorno: Linux (compatible con Windows si se recompila)
 
-  Estructura del proyecto
+**Estructura del proyecto**
   
   proyecto-rastreador-salud/
 ├─ src/
@@ -65,17 +65,17 @@ Tecnologías utilizadas
 │  └─ presentacion.pptx
 └─ README.md
 
-Base de datos
+**Base de datos**
 
 El proyecto utiliza una base SQLite con dos tablas:
-users
+**users**
 | Campo         | Tipo   | Descripción        |
 | ------------- | ------ | ------------------ |
 | id            | INT PK | Identificador      |
 | username      | TEXT   | Nombre de usuario  |
 | password_hash | TEXT   | Contraseña en hash |
 
-health_records
+**health_records**
 | Campo     | Tipo   | Descripción                |
 | --------- | ------ | -------------------------- |
 | id        | INT PK | Identificador del registro |
@@ -88,22 +88,22 @@ health_records
 
 Funcionalidades principales de la aplicación
 
-➤ Login
+➤ **Login**
 Permite autenticación básica y validación de contraseña.
 
-➤ Registro de datos
+➤ **Registro de datos**
 Formulario para ingresar peso, presión arterial y glucosa.
 
-➤ Historial
+➤ **Historial**
 Tabla filtrable por rango de fechas.
 
-➤ Estadísticas
+➤ **Estadísticas**
 Promedios básicos calculados automáticamente.
 
-➤ Exportación CSV
+➤ **Exportación CSV**
 Exporta los registros del usuario a un archivo .csv descargable.
 
-Mejoras futuras
+**Mejoras futuras**
 
   Añadir más indicadores de salud (IMC, frecuencia cardiaca, etc.)
   Notificaciones y alertas
@@ -111,8 +111,7 @@ Mejoras futuras
   Versión móvil o web
   Gráficas más avanzadas
 
-  Autores
-
+**Autores**
 Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón
 Estudiantes de Algoritmos en Sistemas Electrónicos
 Universidad Escuela Colombiana de Ingeniería.
