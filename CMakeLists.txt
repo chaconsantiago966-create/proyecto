@@ -41,18 +41,11 @@ set(HEADERS
     csvexporter.h
 )
 
-# Si tuvieras archivos .ui, los agregas aquí, por ejemplo:
-# set(UIS
-#     loginwindow.ui
-#     mainwindow.ui
-# )
-
 # Ejecutable (para Qt6 usamos qt_add_executable, para Qt5 add_executable normal)
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(RastreadorSalud
         ${SOURCES}
         ${HEADERS}
-        # ${UIS}   # descomenta si agregas .ui a la lista UIS
     )
 else()
     add_executable(RastreadorSalud
@@ -70,5 +63,5 @@ target_link_libraries(RastreadorSalud
 )
 
 # Ruta donde estará la BD (opcional, solo para tenerla cerca del ejecutable)
-# Puedes crear la carpeta data/ a mano
+
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/data)
