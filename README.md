@@ -1,4 +1,4 @@
-# proyecto
+# Proyecto
 Proyecto de Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón
 
 Este proyecto es una aplicación de escritorio que permite a un usuario registrar y consultar sus indicadores básicos de salud: peso, presión arterial y glucosa.
