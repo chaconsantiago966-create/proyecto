@@ -36,3 +36,19 @@ void LoginWindow::on_btnLogin_clicked() {
     m->show();
     this->close();
 }
+
+void LoginWindow::on_btnRegister_clicked() {
+    QString username = ui->txtUser->text();
+    QString password = ui->txtPass->text();
+
+    if (username.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(this, "Error", "Por favor ingrese usuario y contraseña");
+        return;
+    }
+
+    if (db->createUser(username, password)) {
+        QMessageBox::information(this, "Éxito", "Usuario registrado correctamente");
+    } else {
+        QMessageBox::warning(this, "Error", "No se pudo registrar el usuario (¿ya existe?)");
+    }
+}

@@ -1,0 +1,5 @@
+build/
+build_agent/
+*.user
+*.o
+*.moc

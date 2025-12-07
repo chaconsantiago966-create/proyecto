@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Rastreador de Salud</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayoutInput">
+      <item>
+       <widget class="QLabel" name="lblPeso">
+        <property name="text">
+         <string>Peso:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="spPeso"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblSis">
+        <property name="text">
+         <string>Sistólica:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spSis"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblDia">
+        <property name="text">
+         <string>Diastólica:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spDia"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblGlu">
+        <property name="text">
+         <string>Glucosa:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spGlu"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnGuardar">
+        <property name="text">
+         <string>Guardar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayoutFilter">
+      <item>
+       <widget class="QLabel" name="lblIni">
+        <property name="text">
+         <string>Inicio:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateTimeEdit" name="fechaIni">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblFin">
+        <property name="text">
+         <string>Fin:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateTimeEdit" name="fechaFin">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnFiltrar">
+        <property name="text">
+         <string>Filtrar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableView" name="tabla"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnExportar">
+      <property name="text">
+       <string>Exportar a CSV</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

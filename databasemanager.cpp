@@ -1,6 +1,7 @@
 #include "databasemanager.h"
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QVariant>
 
 DatabaseManager::DatabaseManager(QString path) {
     db = QSqlDatabase::addDatabase("QSQLITE");
