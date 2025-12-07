@@ -1,5 +1,5 @@
 # Proyecto
-Proyecto de Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón
+Proyecto de Juan José Triviño, Juan Esteban Espinosa, Santiago Chacón
 
 Este proyecto es una aplicación de escritorio que permite a un usuario registrar y consultar sus indicadores básicos de salud: peso, presión arterial y glucosa.
 Fue desarrollada en C++, utilizando Qt para la interfaz gráfica y SQLite como base de datos local.
