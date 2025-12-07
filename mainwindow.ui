@@ -25,7 +25,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QDoubleSpinBox" name="spPeso"/>
+       <widget class="QDoubleSpinBox" name="spPeso">
+        <property name="suffix">
+         <string> kg</string>
+        </property>
+        <property name="maximum">
+         <double>300.0</double>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="lblSis">
@@ -35,7 +42,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spSis"/>
+       <widget class="QSpinBox" name="spSis">
+        <property name="suffix">
+         <string> mmHg</string>
+        </property>
+        <property name="maximum">
+         <number>300</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="lblDia">
@@ -45,7 +59,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spDia"/>
+       <widget class="QSpinBox" name="spDia">
+        <property name="suffix">
+         <string> mmHg</string>
+        </property>
+        <property name="maximum">
+         <number>300</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="lblGlu">
@@ -55,7 +76,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spGlu"/>
+       <widget class="QSpinBox" name="spGlu">
+        <property name="suffix">
+         <string> mg/dL</string>
+        </property>
+        <property name="maximum">
+         <number>600</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnGuardar">
@@ -109,11 +137,35 @@
      <widget class="QTableView" name="tabla"/>
     </item>
     <item>
-     <widget class="QPushButton" name="btnExportar">
-      <property name="text">
-       <string>Exportar a CSV</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayoutActions">
+      <item>
+       <widget class="QPushButton" name="btnExportar">
+        <property name="text">
+         <string>Exportar a CSV</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLogout">
+        <property name="text">
+         <string>Cerrar Sesión</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

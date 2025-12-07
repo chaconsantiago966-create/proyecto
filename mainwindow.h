@@ -20,6 +20,7 @@ private slots:
     void on_btnGuardar_clicked();
     void on_btnFiltrar_clicked();
     void on_btnExportar_clicked();
+    void on_btnLogout_clicked();
 
 private:
     Ui::MainWindow *ui;

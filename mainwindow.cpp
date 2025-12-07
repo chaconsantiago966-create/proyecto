@@ -3,6 +3,8 @@
 #include "csvexporter.h"
 #include <QMessageBox>
 #include <QStandardItemModel>
+#include <QProcess>
+#include <QApplication>
 
 MainWindow::MainWindow(const User &u, QWidget *parent)
     : QMainWindow(parent)
@@ -13,10 +15,39 @@ MainWindow::MainWindow(const User &u, QWidget *parent)
 
     db = new DatabaseManager("data/health_tracker.db");
     cargarTabla();
+
+    // Estilo básico
+    this->setStyleSheet(
+        "QMainWindow { background-color: #f0f0f0; }"
+        "QPushButton { background-color: #007bff; color: white; border-radius: 5px; padding: 5px; }"
+        "QPushButton:hover { background-color: #0056b3; }"
+        "QLineEdit, QSpinBox, QDoubleSpinBox, QDateTimeEdit { padding: 4px; border: 1px solid #ccc; border-radius: 3px; }"
+    );
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::on_btnLogout_clicked() {
+    // Crear una nueva instancia de LoginWindow y mostrarla
+    // Nota: Necesitamos incluir "loginwindow.h" al principio del archivo si no está
+    // Pero LoginWindow incluye MainWindow, así que cuidado con dependencias circulares.
+    // Una forma simple es cerrar esta ventana y dejar que el main maneje el flujo, 
+    // pero como el main ya terminó su ejecución inicial, lo más fácil es instanciar LoginWindow aquí.
+    
+    // Para evitar dependencia circular en headers, usamos forward declaration en .h e include en .cpp
+    // Ya tenemos #include "mainwindow.h", necesitamos #include "loginwindow.h"
+    
+    this->close();
+    // LoginWindow *login = new LoginWindow();
+    // login->show();
+    // Sin embargo, para hacerlo correctamente sin fugas ni problemas de diseño, 
+    // lo ideal sería emitir una señal o reiniciar la app.
+    // Por simplicidad en este proyecto estudiantil:
+    
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    qApp->quit();
 }
 
 void MainWindow::on_btnGuardar_clicked() {
