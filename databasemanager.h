@@ -3,8 +3,9 @@
 
 #include <QSqlDatabase>
 #include <optional>
-#include "user.h"
-#include "healthrecord.h"
+#include "models.h"
+#include <QVector> // Added this include based on the provided Code Edit, assuming it was intended to be moved/added.
+#include <QDateTime> // Added this include as QDateTime is used in the header.
 
 class DatabaseManager {
 public:

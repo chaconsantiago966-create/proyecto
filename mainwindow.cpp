@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "csvexporter.h"
+#include "utils.h"
 #include <QMessageBox>
 #include <QStandardItemModel>
 #include <QProcess>
@@ -102,6 +102,6 @@ void MainWindow::on_btnExportar_clicked() {
     auto registros = db->getRecordsByUserAndDateRange(usuario.id,
                                                       ui->fechaIni->dateTime(),
                                                       ui->fechaFin->dateTime());
-    CSVExporter::exportRecords(registros, "export.csv");
+    Utils::exportToCSV(registros, "export.csv");
     QMessageBox::information(this, "Exportado", "Archivo exportado como export.csv");
 }

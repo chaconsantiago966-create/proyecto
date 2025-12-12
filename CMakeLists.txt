@@ -23,22 +23,17 @@ set(SOURCES
     main.cpp
     loginwindow.cpp
     mainwindow.cpp
-    user.cpp
-    healthrecord.cpp
     databasemanager.cpp
-    healthanalyzer.cpp
-    csvexporter.cpp
+    utils.cpp
 )
 
 # Archivos de cabecera (opcional, pero ayuda a IDEs)
 set(HEADERS
     loginwindow.h
     mainwindow.h
-    user.h
-    healthrecord.h
     databasemanager.h
-    healthanalyzer.h
-    csvexporter.h
+    models.h
+    utils.h
 )
 
 # Ejecutable (para Qt6 usamos qt_add_executable, para Qt5 add_executable normal)

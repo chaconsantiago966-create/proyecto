@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "user.h"
+#include "models.h"
 #include "databasemanager.h"
 
 namespace Ui {

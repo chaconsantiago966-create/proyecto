@@ -1,10 +1,16 @@
-#ifndef HEALTHRECORD_H
-#define HEALTHRECORD_H
+#ifndef MODELS_H
+#define MODELS_H
 
+#include <QString>
 #include <QDateTime>
 
-class HealthRecord {
-public:
+struct User {
+    int id;
+    QString username;
+    QString passwordHash;
+};
+
+struct HealthRecord {
     int id;
     int userId;
     double weight;
@@ -14,4 +20,4 @@ public:
     QDateTime timestamp;
 };
 
-#endif // HEALTHRECORD_H
+#endif // MODELS_H
