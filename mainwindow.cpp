@@ -105,3 +105,19 @@ void MainWindow::on_btnExportar_clicked() {
     Utils::exportToCSV(registros, "export.csv");
     QMessageBox::information(this, "Exportado", "Archivo exportado como export.csv");
 }
+
+void MainWindow::on_btnCalcular_clicked() {
+    auto registros = db->getRecordsByUserAndDateRange(usuario.id,
+                                                      ui->fechaIni->dateTime(),
+                                                      ui->fechaFin->dateTime());
+    
+    auto stats = Utils::calculateStats(registros);
+    
+    QString info = QString("Promedios - Peso: %1 kg | Sis: %2 | Dia: %3 | Glu: %4")
+            .arg(stats.avgWeight, 0, 'f', 1)
+            .arg(stats.avgSystolic, 0, 'f', 0)
+            .arg(stats.avgDiastolic, 0, 'f', 0)
+            .arg(stats.avgGlucose, 0, 'f', 1);
+            
+    ui->lblStats->setText(info);
+}
