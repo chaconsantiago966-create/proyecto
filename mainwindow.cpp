@@ -14,6 +14,11 @@ MainWindow::MainWindow(const User &u, QWidget *parent)
     ui->setupUi(this);
 
     db = new DatabaseManager("data/health_tracker.db");
+
+    // Inicializar fechas por defecto (ej. último mes)
+    ui->fechaIni->setDateTime(QDateTime::currentDateTime().addMonths(-1));
+    ui->fechaFin->setDateTime(QDateTime::currentDateTime());
+
     cargarTabla();
 
     // Estilo básico
@@ -59,8 +64,12 @@ void MainWindow::on_btnGuardar_clicked() {
     r.glucose = ui->spGlu->value();
     r.timestamp = QDateTime::currentDateTime();
 
-    db->addHealthRecord(r);
-    cargarTabla();
+    if (db->addHealthRecord(r)) {
+        QMessageBox::information(this, "Guardado", "Registro guardado correctamente");
+        cargarTabla();
+    } else {
+        QMessageBox::critical(this, "Error", "No se pudo guardar el registro.\nRevise la consola.");
+    }
 }
 
 void MainWindow::on_btnFiltrar_clicked() {

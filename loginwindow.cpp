@@ -49,6 +49,8 @@ void LoginWindow::on_btnRegister_clicked() {
     if (db->createUser(username, password)) {
         QMessageBox::information(this, "Éxito", "Usuario registrado correctamente");
     } else {
-        QMessageBox::warning(this, "Error", "No se pudo registrar el usuario (¿ya existe?)");
+        QMessageBox::warning(this, "Error", "No se pudo registrar el usuario.\n"
+                                          "Verifique que el usuario no exista ya.\n"
+                                          "Revise la consola para más detalles.");
     }
 }

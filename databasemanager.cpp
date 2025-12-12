@@ -2,32 +2,56 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
+#include <QDebug>
 
 DatabaseManager::DatabaseManager(QString path) {
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    // Evitar problemas si ya existe la conexión por defecto
+    if (QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
+        db = QSqlDatabase::database(QSqlDatabase::defaultConnection);
+    } else {
+        db = QSqlDatabase::addDatabase("QSQLITE");
+    }
     db.setDatabaseName(path);
-    db.open();
-    initTables();
+
+    if (!db.open()) {
+        qDebug() << "Error: connection with database failed";
+        qDebug() << db.lastError().text();
+    } else {
+        qDebug() << "Database: connection ok";
+        initTables();
+    }
 }
 
 void DatabaseManager::initTables() {
-    QSqlQuery q;
-    q.exec("CREATE TABLE IF NOT EXISTS users ("
-           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-           "username TEXT UNIQUE, "
-           "password_hash TEXT)");
+    QSqlQuery q(db);
+    if (!q.exec("CREATE TABLE IF NOT EXISTS users ("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "username TEXT UNIQUE, "
+                "password_hash TEXT)")) {
+        qDebug() << "Error creating users table:" << q.lastError().text();
+    }
 
-    q.exec("CREATE TABLE IF NOT EXISTS health_records ("
-           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-           "user_id INTEGER, weight REAL, systolic INTEGER, "
-           "diastolic INTEGER, glucose REAL, timestamp TEXT)");
+    if (!q.exec("CREATE TABLE IF NOT EXISTS health_records ("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "user_id INTEGER, "
+                "weight REAL, "
+                "systolic INTEGER, "
+                "diastolic INTEGER, "
+                "glucose REAL, "
+                "timestamp TEXT)")) {
+        qDebug() << "Error creating health_records table:" << q.lastError().text();
+    }
 }
 
 std::optional<User> DatabaseManager::getUserByUsername(const QString &username) {
-    QSqlQuery q;
+    QSqlQuery q(db);
     q.prepare("SELECT id, username, password_hash FROM users WHERE username=?");
     q.addBindValue(username);
-    q.exec();
+
+    if (!q.exec()) {
+        qDebug() << "Error getting user:" << q.lastError().text();
+        return std::nullopt;
+    }
 
     if (q.next()) {
         User u;
@@ -40,15 +64,19 @@ std::optional<User> DatabaseManager::getUserByUsername(const QString &username) 
 }
 
 bool DatabaseManager::createUser(const QString &username, const QString &pass) {
-    QSqlQuery q;
+    QSqlQuery q(db);
     q.prepare("INSERT INTO users (username, password_hash) VALUES (?,?)");
     q.addBindValue(username);
-    q.addBindValue(pass);
-    return q.exec();
+    q.addBindValue(pass);      // OJO: aquí podrías guardar un hash real
+    if (!q.exec()) {
+        qDebug() << "Error creating user:" << q.lastError().text();
+        return false;
+    }
+    return true;
 }
 
 bool DatabaseManager::addHealthRecord(const HealthRecord &r) {
-    QSqlQuery q;
+    QSqlQuery q(db);
     q.prepare("INSERT INTO health_records "
               "(user_id, weight, systolic, diastolic, glucose, timestamp) "
               "VALUES (?,?,?,?,?,?)");
@@ -58,7 +86,12 @@ bool DatabaseManager::addHealthRecord(const HealthRecord &r) {
     q.addBindValue(r.diastolicPressure);
     q.addBindValue(r.glucose);
     q.addBindValue(r.timestamp.toString(Qt::ISODate));
-    return q.exec();
+
+    if (!q.exec()) {
+        qDebug() << "Error adding record:" << q.lastError().text();
+        return false;
+    }
+    return true;
 }
 
 QVector<HealthRecord> DatabaseManager::getRecordsByUserAndDateRange(
@@ -66,14 +99,20 @@ QVector<HealthRecord> DatabaseManager::getRecordsByUserAndDateRange(
 {
     QVector<HealthRecord> lista;
 
-    QSqlQuery q;
+    QSqlQuery q(db);
     q.prepare("SELECT id, weight, systolic, diastolic, glucose, timestamp "
-              "FROM health_records WHERE user_id=? "
-              "AND timestamp BETWEEN ? AND ?");
+              "FROM health_records "
+              "WHERE user_id=? "
+              "AND date(timestamp) BETWEEN date(?) AND date(?) "
+              "ORDER BY timestamp DESC");
     q.addBindValue(userId);
     q.addBindValue(ini.toString(Qt::ISODate));
     q.addBindValue(fin.toString(Qt::ISODate));
-    q.exec();
+
+    if (!q.exec()) {
+        qDebug() << "Error getting records:" << q.lastError().text();
+        return lista;
+    }
 
     while (q.next()) {
         HealthRecord r;
