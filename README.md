@@ -1,121 +1,83 @@
-# Proyecto
-Proyecto de Juan José Triviño, Juan Esteban Espinosa, Santiago Chacón
+# Proyecto Rastreador de Salud
 
-Este proyecto es una aplicación de escritorio que permite a un usuario registrar y consultar sus indicadores básicos de salud: peso, presión arterial y glucosa.
-Fue desarrollada en C++, utilizando Qt para la interfaz gráfica y SQLite como base de datos local.
+Proyecto de Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón.
+Aplicación de escritorio en C++ y Qt para gestionar indicadores de salud.
 
-**El sistema permite**:
+## Estructura del Proyecto (Refactorizada)
 
-  Iniciar sesión con usuario y contraseña
-  Registrar nuevos datos de salud
-  Visualizar el historial filtrado por fechas
-  Calcular estadísticas básicas
-  Exportar registros a CSV
-  Manejar la información de forma segura y organizada
+El código se organiza en los siguientes módulos principales:
 
-Este proyecto fue creado como entrega final para la asignatura Algoritmos en Sistemas Electrónicos.
+### 1. Modelos y Utilidades
 
-**Características principales**
+- **`models.h`**: Define las estructuras de datos principales:
+  - `User`: Usuario del sistema (id, username, password).
+  - `HealthRecord`: Registro de salud (peso, presión, glucosa, fecha).
+- **`utils.h` / `utils.cpp`**: Funciones auxiliares.
+  - `calculateStats`: Calcula promedios de los registros visibles.
+  - `exportToCSV`: Exporta los datos a un archivo Excel/CSV.
 
-  Autenticación de usuarios
-  CRUD de registros de salud
-  Base de datos local SQLite
-  Interfaz gráfica con Qt Widgets
-  Cálculo de estadísticas básicas
-  Exportación de datos a CSV
-  Diseño orientado a objetos
+### 2. Base de Datos
 
-**Tecnologías utilizadas**
+- **`databasemanager.h` / `databasemanager.cpp`**:
+  - Maneja la conexión con SQLite (`health_tracker.db`).
+  - Funciones CRUD: `createUser`, `addHealthRecord`, `getRecordsByUserAndDateRange`.
+  - **Nota**: El archivo se repara automáticamente si falta una tabla.
 
-  Lenguaje: C++
-  Framework: Qt5 / Qt6 (según instalación)
-  Base de datos: SQLite
-  Entorno: Linux (compatible con Windows si se recompila)
+### 3. Interfaz Gráfica (UI)
 
-**Estructura del proyecto**
+- **`loginwindow`**:
+  - Primera ventana que aparece.
+  - Maneja Login y Registro.
+  - Al validar usuario, abre `MainWindow` y se cierra.
+- **`mainwindow`**:
+  - Ventana principal con tabla de registros.
+  - Filtros de fecha (por defecto muestra el último mes).
+  - Botones para Guardar nuevo registro, Calcular estadísticas y Exportar.
+
+### 4. Entrada
+
+- **`main.cpp`**: Punto de entrada. Inicia la aplicación y muestra el Login.
+
+---
+
+## Flujo de la Aplicación
+
+1. **Inicio**: Se ejecuta `main.cpp` -> Muestra `LoginWindow`.
+2. **Autenticación**:
+   - El usuario ingresa credenciales o se registra.
+   - `DatabaseManager` verifica/crea el usuario en SQLite.
+3. **Uso Principal**:
+   - Se abre `MainWindow` con los datos del usuario.
+   - **Visualización**: La tabla carga automáticamente registros del último mes.
+   - **Gestión**: El usuario puede agregar peso/presión/glucosa.
+   - **Análisis**: Botón "Calcular Estadísticas" muestra promedios en pantalla.
+   - **Exportación**: Botón "Exportar" genera un `.csv`.
+4. **Cierre**: Al "Cerrar Sesión", la app se reinicia al Login.
+
+---
+
+## Comandos Claves
+
+### 1. Compilar (Desde la raíz del proyecto)
+
+```bash
+# Configurar el proyecto (crear carpeta build_agent)
+cmake -S . -B build_agent
+
+# Compilar el ejecutable
+cmake --build build_agent
 ```
-proyecto-rastreador-salud/
-├── src/
-│   ├── main.cpp
-│   ├── loginwindow.cpp
-│   ├── mainwindow.cpp
-│   ├── user.cpp
-│   ├── healthrecord.cpp
-│   ├── databasemanager.cpp
-│   ├── healthanalyzer.cpp
-│   ├── csvexporter.cpp
-│   └── ...
-├── include/
-│   ├── loginwindow.h
-│   ├── mainwindow.h
-│   ├── user.h
-│   ├── healthrecord.h
-│   ├── databasemanager.h
-│   ├── healthanalyzer.h
-│   ├── csvexporter.h
-│   └── ...
-├── ui/
-│   ├── loginwindow.ui
-│   └── mainwindow.ui
-├── sql/
-│   └── init_db.sql
-├── data/
-│   └── health_tracker.db
-├── docs/
-│   ├── informe_proyecto.pdf
-│   └── presentacion.pptx
-└── README.md
+
+### 2. Ejecutar
+
+```bash
+./build_agent/RastreadorSalud
 ```
 
-**Base de datos**
+### 3. Git (Subir cambios)
 
-El proyecto utiliza una base SQLite con dos tablas:
-**users**
-| Campo         | Tipo   | Descripción        |
-| ------------- | ------ | ------------------ |
-| id            | INT PK | Identificador      |
-| username      | TEXT   | Nombre de usuario  |
-| password_hash | TEXT   | Contraseña en hash |
-
-**health_records**
-| Campo     | Tipo   | Descripción                |
-| --------- | ------ | -------------------------- |
-| id        | INT PK | Identificador del registro |
-| user_id   | INT FK | Usuario propietario        |
-| weight    | REAL   | Peso                       |
-| systolic  | INT    | Presión sistólica          |
-| diastolic | INT    | Presión diastólica         |
-| glucose   | REAL   | Nivel de glucosa           |
-| timestamp | TEXT   | Fecha y hora del registro  |
-
-Funcionalidades principales de la aplicación
-
-➤ **Login**
-Permite autenticación básica y validación de contraseña.
-
-➤ **Registro de datos**
-Formulario para ingresar peso, presión arterial y glucosa.
-
-➤ **Historial**
-Tabla filtrable por rango de fechas.
-
-➤ **Estadísticas**
-Promedios básicos calculados automáticamente.
-
-➤ **Exportación CSV**
-Exporta los registros del usuario a un archivo .csv descargable.
-
-**Mejoras futuras**
-
-  Añadir más indicadores de salud (IMC, frecuencia cardiaca, etc.)
-  Notificaciones y alertas
-  Sincronización con la nube
-  Versión móvil o web
-  Gráficas más avanzadas
-
-**Autores**
-Juan José Triviño, Juan Esteban Espinoza, Santiago Chacón
-Estudiantes de Algoritmos en Sistemas Electrónicos
-Universidad Escuela Colombiana de Ingeniería.
-
-  
+```bash
+git add .
+git commit -m "Descripción de cambios"
+git push
+```
